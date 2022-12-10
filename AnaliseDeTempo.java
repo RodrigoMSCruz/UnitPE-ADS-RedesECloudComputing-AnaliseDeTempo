@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class AnaliseDeTempo{
   
-  public float[] Ping(String inputHost, int npacks){
+  public static long[] Ping(String inputHost, int npacks){
+    long[] answerTimes = new long[npacks];
     if (inputHost.length() > 0) {
       InetAddress address = null;
       try {
@@ -20,38 +21,18 @@ public class AnaliseDeTempo{
         if (address.isReachable(5000)) {
           long nanos = 0;
           long millis = 0;
-          long shorterTime = 0;
-          long longerTime = 0;
-          long total = 0;
-          int successful = 0;
-          int failures = 0;
-          int loops = 20;
-          for(int i = 1; i <= loops; i++) {
+          for(int i = 0; i < npacks; i++) {
             try {
               nanos = System.nanoTime();
               address.isReachable(5000);
-              nanos = System.nanoTime()-nanos;
-              successful++;
+              nanos = System.nanoTime()-nanos;  
             }
             catch (IOException e) {
-              failures++;
               System.out.println("Falhou em alcançar o host");
             }
             millis = Math.round(nanos/Math.pow(10,6));
-            
-            if(i == 1){
-              shorterTime = longerTime = millis;
-            }
-            else{
-              if(millis < shorterTime){
-                shorterTime = millis;
-              }
-              if(millis > longerTime){
-                longerTime = millis;
-              }
-            }
-            total = total + millis;
-            System.out.println("Envio do pacote "+ i + " ao IP: " + address.getHostAddress()+" com o de tempo de " + millis+"ms");
+            answerTimes[i] = millis;
+            System.out.println("Envio do pacote "+ (i + 1) + " ao IP: " + address.getHostAddress()+" com o de tempo de " + millis+"ms");
             try {
               Thread.sleep(Math.max(0, 1000-millis));
             }
@@ -59,12 +40,6 @@ public class AnaliseDeTempo{
               break;
             }
           }
-          System.out.println("Tentativas com sucesso: " + successful + "(" + ((float)successful/loops)*100 + "%) de sucesso.");
-          System.out.println("Tentativas com falhas: " + failures + "(" + ((float)failures/loops)*100 + "%) de falhas.");
-          System.out.println("Menor tempo registrado: " + shorterTime + "ms");
-          System.out.println("Maior tempo registrado: " + longerTime + "ms");
-          System.out.println("Média das tentativas com sucesso: " + (float)total/successful + "ms");
-          System.out.println("Média geral (Com tentativas com sucesso e com falhas): " + (float)total/loops + "ms");
         }
         else {
           System.out.println("Host "+address.getHostName()+" não é mais alcancável");
@@ -77,8 +52,9 @@ public class AnaliseDeTempo{
     else {
       System.out.println("Endereço inválido para teste. <inputHost>");
     }
+    return answerTimes;
   }
-  
+
 
   public static void main(String[] args){
     Scanner input = new Scanner(System.in);
@@ -87,7 +63,7 @@ public class AnaliseDeTempo{
     System.out.print("Digite a quantidade de pacotes a ser enviada: ");
     int npacks = input.nextInt();
     input.close();
-    float[] answerTimes = new float[npacks];
+    long[] answerTimes = new long[npacks];
     answerTimes = Ping(inputHost, npacks);
   }  
 }
