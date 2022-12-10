@@ -5,11 +5,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class AnaliseDeTempo{
-  public static void main(String[] args){
-  Scanner input = new Scanner(System.in);
-  System.out.print("Digite o host a ser analisado: ");
-  String inputHost = input.nextLine();
-  input.close();
+  
+  public float[] Ping(String inputHost, int npacks){
     if (inputHost.length() > 0) {
       InetAddress address = null;
       try {
@@ -81,4 +78,16 @@ public class AnaliseDeTempo{
       System.out.println("Endereço inválido para teste. <inputHost>");
     }
   }
+  
+
+  public static void main(String[] args){
+    Scanner input = new Scanner(System.in);
+    System.out.print("Digite o host a ser analisado: ");
+    String inputHost = input.nextLine();
+    System.out.print("Digite a quantidade de pacotes a ser enviada: ");
+    int npacks = input.nextInt();
+    input.close();
+    float[] answerTimes = new float[npacks];
+    answerTimes = Ping(inputHost, npacks);
+  }  
 }
