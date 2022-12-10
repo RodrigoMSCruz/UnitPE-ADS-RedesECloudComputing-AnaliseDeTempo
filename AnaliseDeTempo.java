@@ -32,7 +32,9 @@ public class AnaliseDeTempo{
             }
             millis = Math.round(nanos/Math.pow(10,6));
             answerTimes[i] = millis;
+            //----------------------------------
             System.out.println("Envio do pacote "+ (i + 1) + " ao IP: " + address.getHostAddress()+" com o de tempo de " + millis+"ms");
+            //----------------------------------
             try {
               Thread.sleep(Math.max(0, 1000-millis));
             }
