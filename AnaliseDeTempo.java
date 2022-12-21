@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class AnaliseDeTempo{
 
   public static long ping(InetAddress address){
+    long nanos = 0L;
+    long millis = 0L;
     try {
       if (address.isReachable(5000)) {
-        long nanos = 0L;
-        long millis = 0L;
           try {
             nanos = System.nanoTime();
             address.isReachable(5000);
@@ -23,8 +23,6 @@ public class AnaliseDeTempo{
           }
           
           millis = Math.round(nanos/Math.pow(10,6));
-          return millis;
-          
       }
       else {
         System.out.println("Host "+address.getHostName()+" não é mais alcancável");
@@ -33,6 +31,7 @@ public class AnaliseDeTempo{
     catch (IOException e) {
       System.out.println("Erro de rede.");
     }
+    return millis;
   }
 
   public static void main(String[] args){
