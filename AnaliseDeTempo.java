@@ -19,19 +19,54 @@ public class AnaliseDeTempo{
             nanos = System.nanoTime()-nanos;
           }
           catch (IOException e) {
-            System.out.println("Falhou em alcançar o host");
+            millis = -1L;
+            //System.out.println("Falhou em alcançar o host");
           }
           
           millis = Math.round(nanos/Math.pow(10,6));
       }
       else {
-        System.out.println("Host "+address.getHostName()+" não é mais alcancável");
+        millis = -2L;
+        //System.out.println("Host "+address.getHostName()+" não é mais alcancável");
       }
     } 
     catch (IOException e) {
-      System.out.println("Erro de rede.");
+      millis = -3L;
+      //System.out.println("Erro de rede.");
     }
     return millis;
+  }
+
+  public static void Statistic(long []answerTimes){
+    long smaller = 0;
+    long larger = 0;
+    int success = 0;
+    int fail = 0;
+    long summation = 0;
+    for(int i = 0; i < answerTimes.length; i++){
+      if(answerTimes[i] >= 0){
+        success++;
+        summation = summation + answerTimes[i];
+        if(success == 1){
+          smaller = larger = answerTimes[i];
+        }
+        else{
+          if(answerTimes[i]<smaller){
+            smaller = answerTimes[i];
+          }
+          if(answerTimes[i]>larger){
+            larger = answerTimes[i];
+          }
+
+        }
+      }
+      else{
+        fail++;
+      }
+    }
+    /*
+     Bloco de impressão
+     */
   }
 
   public static void main(String[] args){
