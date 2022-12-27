@@ -65,10 +65,11 @@ public class AnaliseDeTempo{
       }
     }
     System.out.println("Número de tentativas: " + answerTimes.length + ".");
-    System.out.println("Número de tentativas bem sucedidas: " + success + "." + (success/answerTimes.length)*100 + "% do total.");
-    System.out.println("Número de tentativas bem sucedidas: " + fail + "." + (fail/answerTimes.length)*100 + "% do total.");
-    System.out.println("Menor tempo de resposta registrado: " + smaller + ".");
-    System.out.println("Maior tempo de resposta registrado: " + larger + ".");
+    System.out.println("Número de tentativas bem sucedidas: " + success + " (" + (success/answerTimes.length)*100 + "% do total).");
+    System.out.println("Número de tentativas bem sucedidas: " + fail + " (" + (fail/answerTimes.length)*100 + "% do total).");
+    System.out.println("Menor tempo de resposta registrado: " + smaller + "ms.");
+    System.out.println("Maior tempo de resposta registrado: " + larger + "ms.");
+    System.out.println("Média de tempo: " + summation/answerTimes.length +"ms.");
   }
 
   public static void main(String[] args){
@@ -92,6 +93,7 @@ public class AnaliseDeTempo{
       }
       for(int i = 0; i < npacks; i++){
         answerTimes[i] = ping(address);
+        System.out.println("Envio do pacote[" + (i + 1) +"]: " + answerTimes[i] + "ms");
         try {
           Thread.sleep(Math.max(0, 1000 - answerTimes[i]));
         }
