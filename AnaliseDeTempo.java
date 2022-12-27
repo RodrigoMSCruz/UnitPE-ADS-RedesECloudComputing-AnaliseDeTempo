@@ -64,9 +64,11 @@ public class AnaliseDeTempo{
         fail++;
       }
     }
-    /*
-     Bloco de impressão
-     */
+    System.out.println("Número de tentativas: " + answerTimes.length + ".");
+    System.out.println("Número de tentativas bem sucedidas: " + success + "." + (success/answerTimes.length)*100 + "% do total.");
+    System.out.println("Número de tentativas bem sucedidas: " + fail + "." + (fail/answerTimes.length)*100 + "% do total.");
+    System.out.println("Menor tempo de resposta registrado: " + smaller + ".");
+    System.out.println("Maior tempo de resposta registrado: " + larger + ".");
   }
 
   public static void main(String[] args){
@@ -101,5 +103,6 @@ public class AnaliseDeTempo{
     else {
       System.out.println("Endereço inválido para teste. <inputHost>");
     }
+    Statistic(answerTimes);
   }
 }
