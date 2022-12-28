@@ -4,8 +4,6 @@ import java.net.UnknownHostException;
 import java.io.IOException;
 import java.util.Scanner;
 
-
-
 public class AnaliseDeTempo{
 
   public static long ping(InetAddress address){
@@ -26,13 +24,11 @@ public class AnaliseDeTempo{
           millis = Math.round(nanos/Math.pow(10,6));
       }
       else {
-        millis = -2L;
-        //System.out.println("Host "+address.getHostName()+" não é mais alcancável");
+        millis = -2L; // Não é mais alcançável
       }
     } 
     catch (IOException e) {
-      millis = -3L;
-      //System.out.println("Erro de rede.");
+      millis = -3L; //Erro de rede.
     }
     return millis;
   }
@@ -57,7 +53,6 @@ public class AnaliseDeTempo{
           if(answerTimes[i]>larger){
             larger = answerTimes[i];
           }
-
         }
       }
       else{
